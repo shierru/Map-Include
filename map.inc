@@ -34,6 +34,67 @@
 
 /**
  * <library>map</library>
+ * <remarks>
+ * The max value x in map. 
+ * Note: 
+ * This value refers to the actual size of the world in GTA: San Andreas.
+ * Taking into account the main islands and expanses of water.
+ * </remarks>
+ */
+const Float:MAX_MAP_X						   = 3000.0;
+#define MAX_MAP_X							     3000.0
+
+/**
+ * <library>map</library>
+ * <remarks>
+ * The max value y in map. 
+ * Note: 
+ * This value refers to the actual size of the world in GTA: San Andreas.
+ * Taking into account the main islands and expanses of water.
+ * </remarks>
+ */
+const Float:MAX_MAP_Y						 	= 3000.0;
+#define MAX_MAP_Y							      3000.0
+
+/**
+ * <library>map</library>
+ * <remarks>
+ * The min value x in map. 
+ * Note: 
+ * This value refers to the actual size of the world in GTA: San Andreas.
+ * Taking into account the main islands and expanses of water.
+ * </remarks>
+ */
+const Float:MIN_MAP_X						 	= -3000.0;
+#define MIN_MAP_X							      -3000.0
+
+/**
+ * <library>map</library>
+ * <remarks>
+ * The min value y in map. 
+ * Note: 
+ * This value refers to the actual size of the world in GTA: San Andreas.
+ * Taking into account the main islands and expanses of water.
+ * </remarks>
+ */
+const Float:MIN_MAP_Y						 	= -3000.0;
+#define MIN_MAP_Y							      -3000.0
+
+/**
+ * <library>map</library>
+ * <remarks>
+ * The map land size. 
+ * Note: 
+ * This value refers to the actual size of the world in GTA: San Andreas.
+ * Taking into account the main islands and expanses of water.
+ * </remarks>
+ */
+const Float:MAP_SIZE						 	 = 6000.0;
+#define MAP_SIZE							   	   6000.0
+
+/// <p/>
+/**
+ * <library>map</library>
  */
 const MAX_MAPZONE_NAME                           = 32;
 #define MAX_MAPZONE_NAME                           32
@@ -41,26 +102,23 @@ const MAX_MAPZONE_NAME                           = 32;
 /**
  * <library>map</library>
  */
-const MAPZONE_AREA_EXCLUDED_COUNT                 = 9;
-#define MAPZONE_AREA_EXCLUDED_COUNT                 9
+const MAPZONE_AREA_EXCLUDED_COUNT                = 9;
+#define MAPZONE_AREA_EXCLUDED_COUNT                9
 
 /**
  * <library>map</library>
  */
 const MAPZONE:INVALID_MAPZONE_ID                 = MAPZONE:-1;
-#define INVALID_MAPZONE_ID                  MAPZONE:-1
+#define INVALID_MAPZONE_ID                  	   MAPZONE:-1
 
 /// <p/>
-/**
- * <library>map</library>
- */
 #if !defined __COMPILER_STATIC_ENUM
-    #define __COMPILER_STATIC_ENUM                  enum
+    #define __COMPILER_STATIC_ENUM                 enum
 
     #if defined __PawnBuild
         #if __PawnBuild >= 2
             #undef __COMPILER_STATIC_ENUM
-            #define __COMPILER_STATIC_ENUM          static enum
+            #define __COMPILER_STATIC_ENUM         static enum
         #endif
     #endif
 #endif
@@ -240,7 +298,7 @@ enum MAPZONE
 	MAPZONE_FLINT_COUNTY,
 	MAPZONE_WHETSTONE,
 };
-#define MAX_MAP_ZONES                MAPZONE
+#define MAX_MAP_ZONES                				MAPZONE
 
 /**
  * <library>map</library>
@@ -440,7 +498,7 @@ static const s_MapZonesData[][MAPZONE_DATA] =
 	{!"Flint County", 2044, 1},
 	{!"Whetstone", 2159, 1}
 };
-#define MAPZONE_DATA_SIZE               sizeof(s_MapZonesData)
+#define MAPZONE_DATA_SIZE               			sizeof(s_MapZonesData)
 
 /**
  * <library>map</library>
@@ -827,7 +885,7 @@ static const s_MapZonesAreaData[][MAPZONE_AREA_DATA] =
 	{MAPZONE_FREDERICK_BRIDGE, 2759.250000, 296.501007, 0.000000, 2774.250000, 594.757019, 200.000000},
 	{MAPZONE_LINDEN_STATION, 2811.250000, 1229.589965, -39.594001, 2861.250000, 1407.589965, 60.405998}
 };
-#define MAPZONE_AREA_DATA_SIZE          sizeof(s_MapZonesAreaData)
+#define MAPZONE_AREA_DATA_SIZE          			sizeof(s_MapZonesAreaData)
 
 /**
  * <library>map</library>
@@ -919,9 +977,9 @@ stock MAPZONE:GetPlayerMapZone3D(playerid)
         Float:z = 0.0;
 
 	if(!GetPlayerPos(playerid, x, y, z))
-		return INVALID_MAP_ZONE_ID;
+		return INVALID_MAPZONE_ID;
 
-	return GetMapZoneAtPoint(x, y, z);
+	return GetMapZoneAtPoint3D(x, y, z);
 }
 
 /**
@@ -934,9 +992,9 @@ stock MAPZONE:GetVehicleMapZone3D(vehicleid)
         Float:z = 0.0;
 
 	if(!GetVehiclePos(vehicleid, x, y, z))
-		return INVALID_MAP_ZONE_ID;
+		return INVALID_MAPZONE_ID;
 
-	return GetMapZoneAtPoint(x, y, z);
+	return GetMapZoneAtPoint3D(x, y, z);
 }
 
 /**
