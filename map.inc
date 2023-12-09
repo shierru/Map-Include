@@ -296,9 +296,11 @@ enum MAPZONE
 	MAPZONE_SAN_FIERRO,
 	MAPZONE_RED_COUNTY,
 	MAPZONE_FLINT_COUNTY,
-	MAPZONE_WHETSTONE,
+	MAPZONE_WHETSTONE
 };
-#define MAX_MAP_ZONES                				MAPZONE
+static stock MAPZONE:_@MAPZONE() { return MAPZONE; }
+
+#define MAX_MAPZONES                				MAPZONE
 
 /**
  * <library>map</library>
@@ -890,7 +892,8 @@ static const s_MapZonesAreaData[][MAPZONE_AREA_DATA] =
 /**
  * <library>map</library>
  */
-static stock GetMapZoneLoopStartIndex(const Float:x) {
+static stock GetMapZoneLoopStartIndex(const Float:x) 
+{
 	new index = 0;
     
     new left = MAPZONE_AREA_EXCLUDED_COUNT, 
@@ -937,12 +940,12 @@ static stock GetMapZoneLoopStartIndex(const Float:x) {
  */
 stock MAPZONE:GetMapZoneAtPoint3D(const Float:x, const Float:y, const Float:z)
 {
-	if (!(-2997.469970 <= x < 2997.060058) || !(-2892.969970 <= y < 2993.870117) || !(-242.990005 <= z < 900.000000))
+	if(!(-2997.469970 <= x < 2997.060058) || !(-2892.969970 <= y < 2993.870117) || !(-242.990005 <= z < 900.000000))
 		return INVALID_MAPZONE_ID;
 
 	for(new index = GetMapZoneLoopStartIndex(x); index >= 0; index--) 
     {
-		if (x < s_MapZonesAreaData[index][MAPZONE_AREA_MAX_X] && 
+		if(x < s_MapZonesAreaData[index][MAPZONE_AREA_MAX_X] && 
 			(s_MapZonesAreaData[index][MAPZONE_AREA_MIN_Y] <= y < s_MapZonesAreaData[index][MAPZONE_AREA_MAX_Y]) && 
 			(s_MapZonesAreaData[index][MAPZONE_AREA_MIN_Z] <= z < s_MapZonesAreaData[index][MAPZONE_AREA_MAX_Z])
         ) return s_MapZonesAreaData[index][MAPZONE_AREA_ID];
@@ -954,12 +957,14 @@ stock MAPZONE:GetMapZoneAtPoint3D(const Float:x, const Float:y, const Float:z)
 /**
  * <library>map</library>
  */
-stock MAPZONE:GetMapZoneAtPoint2D(const Float:x, const Float:y) {
-	if (!(-2997.469970 <= x < 2997.060058) || !(-2892.969970 <= y < 2993.870117))
+stock MAPZONE:GetMapZoneAtPoint2D(const Float:x, const Float:y) 
+{
+	if(!(-2997.469970 <= x < 2997.060058) || !(-2892.969970 <= y < 2993.870117))
 		return INVALID_MAPZONE_ID;
 
-	for (new index = GetMapZoneLoopStartIndex(x); index >= 0; index--) {
-		if (x < s_MapZonesAreaData[index][MAPZONE_AREA_MAX_X] && 
+	for(new index = GetMapZoneLoopStartIndex(x); index >= 0; index--) 
+	{
+		if(x < s_MapZonesAreaData[index][MAPZONE_AREA_MAX_X] && 
             (s_MapZonesAreaData[index][MAPZONE_AREA_MIN_Y] <= y < s_MapZonesAreaData[index][MAPZONE_AREA_MAX_Y])
 		) return s_MapZonesAreaData[index][MAPZONE_AREA_ID];
 	}
@@ -1038,7 +1043,7 @@ stock GetMapZoneCount()
 /**
  * <library>map</library>
  */
-stock bool:IsValidMapZone(MAPZONE:index) 
+stock bool:IsValidMapZone(MAPZONE:index)
 {
 	return (0 <= _:index < MAPZONE_DATA_SIZE);
 }
@@ -1090,7 +1095,7 @@ stock GetMapZoneAreaPos(MapZone:id, &Float:minX = 0.0, &Float:minY = 0.0, &Float
 	if(!IsValidMapZone(id) || start < 0)
 		return -1;
 
-	for(new size = MAPZONE_AREA_DATA_SIZE; start < size; start++) 
+	for(new size = MAPZONE_AREA_DATA_SIZE; start < size; start++)
     {
         if(s_MapZonesAreaData[start][MAPZONE_AREA_ID] != id)
             continue;
