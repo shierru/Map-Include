@@ -889,9 +889,24 @@ static const s_MapZonesAreaData[][MAPZONE_AREA_DATA] =
 };
 #define MAPZONE_AREA_DATA_SIZE          			sizeof(s_MapZonesAreaData)
 
-/**
- * <library>map</library>
- */
+/*
+
+	 .oooooo..o ooooooooooooo       .o.       ooooooooooooo ooooo   .oooooo.   
+	d8P'    `Y8 8'   888   `8      .888.      8'   888   `8 `888'  d8P'  `Y8b  
+	Y88bo.           888          .8"888.          888       888  888          
+	 `"Y8888o.       888         .8' `888.         888       888  888          
+	     `"Y88b      888        .88ooo8888.        888       888  888          
+	oo     .d8P      888       .8'     `888.       888       888  `88b    ooo  
+	8""88888P'      o888o     o88o     o8888o     o888o     o888o  `Y8bood8P'  
+                                                                                                                        
+*/
+
+/*
+native # Static();
+native             Static(
+native      ====================(
+native
+*/
 static stock GetMapZoneLoopStartIndex(const Float:x) 
 {
 	new index = 0;
@@ -935,8 +950,33 @@ static stock GetMapZoneLoopStartIndex(const Float:x)
 	return index;
 }
 
+/*
+
+	  .oooooo.    ooooo          .oooooo.   oooooooooo.        .o.       ooooo        
+	 d8P'  `Y8b   `888'         d8P'  `Y8b  `888'   `Y8b      .888.      `888'        
+	888            888         888      888  888     888     .8"888.      888         
+	888            888         888      888  888oooo888'    .8' `888.     888         
+	888     ooooo  888         888      888  888    `88b   .88ooo8888.    888         
+	`88.    .88'   888       o `88b    d88'  888    .88P  .8'     `888.   888       o 
+	 `Y8bood8P'   o888ooooood8  `Y8bood8P'  o888bood8P'  o88o     o8888o o888ooooood8 
+
+*/
+
+/*
+native # Global();
+native             Global(
+native      ====================(
+native
+*/
+
 /**
  * <library>map</library>
+ * <summary>Get mapzone id for position in 3D coordinate system.</summary>
+ * <param name="x">The x coordinate of the point</param>
+ * <param name="y">The y coordinate of the point</param>
+ * <param name="z">The z coordinate of the point</param>
+ * <seealso name="GetMapZoneAtPoint2D" />
+ * <returns>The ID of the mapzone, returns <b><c>-1</c></b> if not zone find.</returns>
  */
 stock MAPZONE:GetMapZoneAtPoint3D(const Float:x, const Float:y, const Float:z)
 {
@@ -956,6 +996,11 @@ stock MAPZONE:GetMapZoneAtPoint3D(const Float:x, const Float:y, const Float:z)
 
 /**
  * <library>map</library>
+ * <summary>Get mapzone id for position in 2D coordinate system.</summary>
+ * <param name="x">The x coordinate of the point</param>
+ * <param name="y">The y coordinate of the point</param>
+ * <seealso name="GetMapZoneAtPoint3D" />
+ * <returns>The ID of the mapzone, returns <b><c>-1</c></b> if not zone find.</returns>
  */
 stock MAPZONE:GetMapZoneAtPoint2D(const Float:x, const Float:y) 
 {
@@ -974,6 +1019,11 @@ stock MAPZONE:GetMapZoneAtPoint2D(const Float:x, const Float:y)
 
 /**
  * <library>map</library>
+ * <summary>Get mapzone id using player coordinates in 3D coordinate system.</summary>
+ * <param name="playerid">The ID of the player whose coordinates will be used for the search</param>
+ * <seealso name="GetMapZoneAtPoint3D" />
+ * <seealso name="GetPlayerMapZone2D" />
+ * <returns>The ID of the mapzone, returns <b><c>-1</c></b> if not zone find.</returns>
  */
 stock MAPZONE:GetPlayerMapZone3D(playerid)
 {
@@ -989,21 +1039,11 @@ stock MAPZONE:GetPlayerMapZone3D(playerid)
 
 /**
  * <library>map</library>
- */
-stock MAPZONE:GetVehicleMapZone3D(vehicleid) 
-{
-	new Float:x = 0.0, 
-        Float:y = 0.0, 
-        Float:z = 0.0;
-
-	if(!GetVehiclePos(vehicleid, x, y, z))
-		return INVALID_MAPZONE_ID;
-
-	return GetMapZoneAtPoint3D(x, y, z);
-}
-
-/**
- * <library>map</library>
+ * <summary>Get mapzone id using player coordinates in 2D coordinate system.</summary>
+ * <param name="playerid">The ID of the player whose coordinates will be used for the search</param>
+ * <seealso name="GetMapZoneAtPoint2D" />
+ * <seealso name="GetPlayerMapZone3D" />
+ * <returns>The ID of the mapzone, returns <b><c>-1</c></b> if not zone find.</returns>
  */
 stock MAPZONE:GetPlayerMapZone2D(playerid) 
 {
@@ -1019,6 +1059,31 @@ stock MAPZONE:GetPlayerMapZone2D(playerid)
 
 /**
  * <library>map</library>
+ * <summary>Get mapzone id using vehicle coordinates in 3D coordinate system.</summary>
+ * <param name="vehicleid">The ID of the vehicle whose coordinates will be used for the search</param>
+ * <seealso name="GetMapZoneAtPoint3D" />
+ * <seealso name="GetVehicleMapZone2D" />
+ * <returns>The ID of the mapzone, returns <b><c>-1</c></b> if not zone find.</returns>
+ */
+stock MAPZONE:GetVehicleMapZone3D(vehicleid) 
+{
+	new Float:x = 0.0, 
+        Float:y = 0.0, 
+        Float:z = 0.0;
+
+	if(!GetVehiclePos(vehicleid, x, y, z))
+		return INVALID_MAPZONE_ID;
+
+	return GetMapZoneAtPoint3D(x, y, z);
+}
+
+/**
+ * <library>map</library>
+ * <summary>Get mapzone id using vehicle coordinates in 2D coordinate system.</summary>
+ * <param name="vehicleid">The ID of the vehicle whose coordinates will be used for the search</param>
+ * <seealso name="GetMapZoneAtPoint2D" />
+ * <seealso name="GetVehicleMapZone3D" />
+ * <returns>The ID of the mapzone, returns <b><c>-1</c></b> if not zone find.</returns>
  */
 stock MAPZONE:GetVehicleMapZone2D(vehicleid) 
 {
@@ -1034,6 +1099,8 @@ stock MAPZONE:GetVehicleMapZone2D(vehicleid)
 
 /**
  * <library>map</library>
+ * <summary>Get mapzone count.</summary>
+ * <returns>The mapzone count.</returns>
  */
 stock GetMapZoneCount() 
 {
@@ -1042,6 +1109,9 @@ stock GetMapZoneCount()
 
 /**
  * <library>map</library>
+ * <summary>Checks if an mapzone ID is valid.</summary>
+ * <param name="index">The ID of the mapzone</param>
+ * <returns><b><c>1</c></b> if the mapzone is valid, <b><c>0</c></b> if not.</returns>
  */
 stock bool:IsValidMapZone(MAPZONE:index)
 {
@@ -1050,6 +1120,11 @@ stock bool:IsValidMapZone(MAPZONE:index)
 
 /**
  * <library>map</library>
+ * <summary>Get mapzone name.</summary>
+ * <param name="index">The ID of the mapzone</param>
+ * <param name="output">The string to output the result to</param>
+ * <param name="size">Size of the output (optional=<b><c>sizeof(output)</c></b>)</param>
+ * <returns><b><c>1</c></b> if the mapzone is valid, <b><c>0</c></b> if not.</returns>
  */
 stock bool:GetMapZoneName(MAPZONE:index, output[], size = sizeof(output)) 
 {
@@ -1063,6 +1138,10 @@ stock bool:GetMapZoneName(MAPZONE:index, output[], size = sizeof(output))
 
 /**
  * <library>map</library>
+ * <summary>Get mapzone soundid.</summary>
+ * <param name="index">The ID of the mapzone</param>
+ * <param name="soundid">The variable to the result</param>
+ * <returns><b><c>1</c></b> if the mapzone is valid, <b><c>0</c></b> if not.</returns>
  */
 stock bool:GetMapZoneSoundID(MAPZONE:index, &soundid) 
 {
@@ -1076,6 +1155,10 @@ stock bool:GetMapZoneSoundID(MAPZONE:index, &soundid)
 
 /**
  * <library>map</library>
+ * <summary>Get mapzone area count.</summary>
+ * <param name="index">The ID of the mapzone</param>
+ * <param name="count">The variable to the result</param>
+ * <returns><b><c>1</c></b> if the mapzone is valid, <b><c>0</c></b> if not.</returns>
  */
 stock bool:GetMapZoneAreaCount(MAPZONE:index, &count)
 {
@@ -1089,15 +1172,25 @@ stock bool:GetMapZoneAreaCount(MAPZONE:index, &count)
 
 /**
  * <library>map</library>
+ * <summary>Get mapzone area count.</summary>
+ * <param name="index">The ID of the mapzone</param>
+ * <param name="minX">The minX coordinate for the mapzone (optional=<b><c>0.0</c></b>)</param>
+ * <param name="minY">The minY coordinate for the mapzone (optional=<b><c>0.0</c></b>)</param>
+ * <param name="minZ">The minZ coordinate for the mapzone (optional=<b><c>0.0</c></b>)</param>
+ * <param name="maxX">The maxX coordinate for the mapzone (optional=<b><c>0.0</c></b>)</param>
+ * <param name="maxY">The maxY coordinate for the mapzone (optional=<b><c>0.0</c></b>)</param>
+ * <param name="maxZ">The maxZ coordinate for the mapzone (optional=<b><c>0.0</c></b>)</param>
+ * <param name="start">The start index (optional=<b><c>0</c></b>)</param>
+ * <returns>The index of the mapzone area, returns <b><c>-1</c></b> if is not valid or start < 0.</returns>
  */
-stock GetMapZoneAreaPos(MapZone:id, &Float:minX = 0.0, &Float:minY = 0.0, &Float:minZ = 0.0, &Float:maxX = 0.0, &Float:maxY = 0.0, &Float:maxZ = 0.0, start = 0) 
+stock GetMapZoneAreaPos(MAPZONE:index, &Float:minX = 0.0, &Float:minY = 0.0, &Float:minZ = 0.0, &Float:maxX = 0.0, &Float:maxY = 0.0, &Float:maxZ = 0.0, start = 0) 
 {
-	if(!IsValidMapZone(id) || start < 0)
+	if(!IsValidMapZone(index) || start < 0)
 		return -1;
 
 	for(new size = MAPZONE_AREA_DATA_SIZE; start < size; start++)
     {
-        if(s_MapZonesAreaData[start][MAPZONE_AREA_ID] != id)
+        if(s_MapZonesAreaData[start][MAPZONE_AREA_ID] != index)
             continue;
 
 		minX = s_MapZonesAreaData[start][MAPZONE_AREA_MIN_X];
